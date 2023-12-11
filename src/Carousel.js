@@ -2,8 +2,8 @@
 
 import React from 'react';
 import Carousel from 'react-bootstrap/Carousel'; // Make sure to install 'react-bootstrap' package
-import image1 from './images/images.jpeg';
-import image2 from './images/images1.jpeg';
+
+//import image2 from './images/images1.jpeg';
 const PhotoCarousel = () => {
     const carouselItemStyle = {
         height: '430px', // Adjust the height as needed
@@ -14,7 +14,7 @@ const PhotoCarousel = () => {
       <Carousel.Item style={carouselItemStyle}>
         <img
           className="d-block w-100"
-          src={image1}
+          src="/images/images.jpeg"
           alt="First slide"
         />
         <Carousel.Caption>
@@ -26,7 +26,7 @@ const PhotoCarousel = () => {
       <Carousel.Item style={carouselItemStyle}>
         <img
           className="d-block w-100"
-          src={image2}
+          src="/images/images1.jpeg"
           alt="Second slide"
         />
         <Carousel.Caption>
