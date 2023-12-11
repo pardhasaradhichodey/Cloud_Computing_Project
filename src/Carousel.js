@@ -12,7 +12,7 @@ const PhotoCarousel = () => {
   return (
     <Carousel interval={carouselInterval}>
       <Carousel.Item style={carouselItemStyle}>
-        <img className="d-block w-100" src="/images.jpeg" alt="First slide" />
+        <img className="d-block w-100" src="/images.png" alt="First slide" />
         <Carousel.Caption>
           <h3>Explore Your Community</h3>
           <p>Discover and report civic issues in your neighborhood.</p>
@@ -20,7 +20,7 @@ const PhotoCarousel = () => {
       </Carousel.Item>
 
       <Carousel.Item style={carouselItemStyle}>
-        <img className="d-block w-100" src="/images1.jpeg" alt="Second slide" />
+        <img className="d-block w-100" src="/images1.png" alt="Second slide" />
         <Carousel.Caption>
           <h3>Make a Difference</h3>
           <p>Contribute to the improvement of your local environment.</p>
