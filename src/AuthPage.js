@@ -5,49 +5,53 @@ import { Tabs, Tab, Form, Button, Card, Row, Col } from 'react-bootstrap';
 
 const AuthPage = () => {
   const [key, setKey] = useState('login');
-
   const handleTabSelect = (k) => {
     setKey(k);
   };
-
-  const handleFormSubmit = (event) => {
+  const [formData, setFormData] = useState({
+    userId: '',
+    email: '',
+    firstName: '',
+    middleName: '',
+    lastName: '',
+    phoneNo: '',
+    password: '',
+    dob: '',
+    street: '',
+    aptNo: '',
+    city: '',
+    state: '',
+    zipCode: '',
+  });
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+  const handleFormSubmit =async (event) => {
     event.preventDefault();
-
-    // Validation checks
     const form = event.target;
     let isValid = true;
-
-    // Validation function for email format
     const isEmailValid = (email) => {
-      // Basic email format check
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       return emailRegex.test(email);
     };
-
-    // Validation function for phone number format
     const isPhoneNumberValid = (phone) => {
-      // Basic phone number format check
       const phoneRegex = /^\d{10}$/;
       return phoneRegex.test(phone);
     };
-
-    // Validation function for password length
     const isPasswordValid = (password) => {
       return password.length >= 8;
     };
-
-    // Iterate through form fields for validation
     Array.from(form.elements).forEach((field) => {
       if (field.tagName === 'INPUT' && field.type !== 'submit') {
         const fieldName = field.id.replace('formRegister', '');
-
-        // Required field validation
         if (field.required && field.value.trim() === '') {
           alert(`Please enter ${fieldName}`);
           isValid = false;
         }
-
-        // Additional field-specific validations
         switch (fieldName) {
           case 'Email':
             if (!isEmailValid(field.value)) {
@@ -67,16 +71,33 @@ const AuthPage = () => {
               isValid = false;
             }
             break;
-          // Add more field-specific validations as needed
           default:
             break;
         }
       }
     });
-
-    // If all validations pass, proceed with form submission
     if (isValid) {
+      try{
+        const response = await fetch('https://8y2d32oena.execute-api.us-east-1.amazonaws.com/prod/user', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+          });
+          if (response.ok) {
+            const data = await response.json();
+            console.log(data.message); // Message from the backend
+            // Additional actions after successful registration
+          } else {
+            console.error('User registration failed');
+          }
+      }
+      catch(error){
+        console.error('Error during user registration:', error);
+      }
       console.log('Form submitted successfully');
+
       // Perform further actions such as API calls, etc.
     }
   };
@@ -118,6 +139,8 @@ const AuthPage = () => {
                       <Form.Label>User ID</Form.Label>
                       <Form.Control type="text" placeholder="Enter User ID" required />
                     </Form.Group>
+                    
+                
 
                     <Form.Group controlId="formRegisterEmail">
                       <Form.Label>Email address</Form.Label>
