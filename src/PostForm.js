@@ -39,6 +39,7 @@ const PostForm = ({userId,count}) => {
           }
         );
         window.location.reload(false);
+        console.log('Submitted Post status:', response);
         console.log('Submitted Post:', post);
     // Reset the form
     temp=temp+1;

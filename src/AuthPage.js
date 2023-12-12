@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { Tabs, Tab, Form, Button, Card, Row, Col } from "react-bootstrap";
 import NavigationBar from "./NavigationBar";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const AuthPage = ({ onLogin }) => {
   const [key, setKey] = useState("login");
@@ -119,6 +119,7 @@ const AuthPage = ({ onLogin }) => {
             body: JSON.stringify(formData),
           }
         );
+        response(response);
         window.location.reload(false);
       } catch (error) {
         console.error("Error during user registration:", error);

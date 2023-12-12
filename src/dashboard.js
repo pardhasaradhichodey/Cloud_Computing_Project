@@ -7,10 +7,10 @@ const Dashboard = (props) => {
   const userId=props.user.userId;
   const [count,setCount]=useState();
   useEffect(() => {
-    console.log(props.user.userId);
+    console.log(userId);
     fetch(
       "https://8y2d32oena.execute-api.us-east-1.amazonaws.com/prod/post?postedBy=" +
-        props.user.userId
+        userId
     )
       .then((response) => response.json())
       .then((data) => {setData(data);console.log(data);setCount(data.length)})

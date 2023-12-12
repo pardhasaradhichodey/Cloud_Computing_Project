@@ -2,8 +2,6 @@
 
 import React, { useState } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
-import Carousel from "./Carousel";
-import NavigationBar from "./NavigationBar";
 import AuthPage from "./AuthPage";
 import Dashboard from "./dashboard";
 import Home from "./Home";
