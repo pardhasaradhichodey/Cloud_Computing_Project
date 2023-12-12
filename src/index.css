@@ -1,3 +1,8 @@
 #home{
   margin-top: 5%;
 }
+.header-container{
+  display: flex; /* Enables Flexbox */
+  justify-content: space-between; /* Aligns children (h1 and button) on opposite ends */
+  align-items: center;
+}

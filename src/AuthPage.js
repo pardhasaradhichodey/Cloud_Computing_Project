@@ -1,20 +1,24 @@
-// AuthPage.js
-
 import React, { useState } from "react";
 import { Tabs, Tab, Form, Button, Card, Row, Col } from "react-bootstrap";
 import NavigationBar from "./NavigationBar";
-import { useNavigate } from "react-router-dom";
+//import { useNavigate } from "react-router-dom";
 
-const AuthPage = ({ onLogin }) => {
+const AuthPage = () => {
+  //Used to change tabs between login and register
   const [key, setKey] = useState("login");
   const handleTabSelect = (k) => {
     setKey(k);
   };
-  const navigate = useNavigate();
+  //Navigation Variable to navigate from page to page
+  //const navigate = useNavigate();
+
+  //to collect login form data
   const [loginFormData,setLoginForm]=useState({
     userId: "",
     password: ""
   });
+
+  //to collect registration form data
   const [formData, setFormData] = useState({
     userId: "",
     email: "",
@@ -30,6 +34,8 @@ const AuthPage = ({ onLogin }) => {
     state: "",
     zipCode: "",
   });
+
+  //handles the input change in Registration form
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setFormData({
@@ -37,6 +43,8 @@ const AuthPage = ({ onLogin }) => {
       [name]: value,
     });
   };
+
+  //handles the input change in login form
   const handleInput = (event)=>{
     const { name, value } = event.target;
     setLoginForm({
@@ -44,6 +52,8 @@ const AuthPage = ({ onLogin }) => {
       [name]: value,
     });
   }
+
+  //form submission of login
   const loginFormSubmit=async (event)=>{
     event.preventDefault();
     console.log(loginFormData);
@@ -51,14 +61,21 @@ const AuthPage = ({ onLogin }) => {
     const user=await data.json();
 
     if(user.password===loginFormData.password){
-        onLogin(user);
-        navigate("/dashboard");
+        userSession(user.userId);
+        window.location.reload();
     }
     else{
         alert("Wrong Login Details");
     }
   }
 
+  const userSession=(userId)=>{
+    const seeInfo={
+      userId:userId
+    }
+    sessionStorage.setItem('user', JSON.stringify(seeInfo));
+  }
+  //form submission of registeration page
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     const form = event.target;
