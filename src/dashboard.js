@@ -9,6 +9,7 @@ const Dashboard = (props) => {
   const [post, setPost] = useState([]);
   const userId = props.user;
   const [count, setCount] = useState();
+  const [isLoading, setIsLoading] = useState(true);
   //const navigate = useNavigate();
   useEffect(() => {
     console.log(userId);
@@ -19,17 +20,17 @@ const Dashboard = (props) => {
       .then((response) => response.json())
       .then((userdata) => {
         setUserData(userdata);
-        console.log(userdata);
       })
       .catch((error) => console.error("Error fetching data:", error));
-    
-      fetch(
-        "https://8y2d32oena.execute-api.us-east-1.amazonaws.com/prod/posts" )
-        .then((response) => response.json())
-        .then((data) => {
-          setPost(data);
-        })
-        .catch((error) => console.error("Error fetching data:", error));
+
+    fetch("https://8y2d32oena.execute-api.us-east-1.amazonaws.com/prod/posts")
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setPost(data);
+        setIsLoading(false);
+      })
+      .catch((error) => console.error("Error fetching data:", error));
 
     fetch(
       "https://8y2d32oena.execute-api.us-east-1.amazonaws.com/prod/post?postedBy=" +
@@ -38,7 +39,6 @@ const Dashboard = (props) => {
       .then((response) => response.json())
       .then((data) => {
         setData(data);
-        console.log(data);
         setCount(data.length);
       })
       .catch((error) => console.error("Error fetching data:", error));
@@ -47,7 +47,14 @@ const Dashboard = (props) => {
     sessionStorage.removeItem("user");
     window.location.reload();
   };
-  let temp=post.posts.Items;
+  if (isLoading) {
+    return (
+      <div>
+        <h3>loading...</h3>
+      </div>
+    );
+  }
+  else{
   return (
     <div>
       <Container>
@@ -88,19 +95,19 @@ const Dashboard = (props) => {
             </Container>
           </Col>
           <Col>
-          <h3>Feed</h3>
-          {temp.map((item) => (
-            <Row>
-              <Col lg={11}>
-                <Post post={item} />
-              </Col>
-            </Row>
-          ))}
+            <h3>Feed</h3>
+            {post.posts.map((item) => (
+              <Row>
+                <Col lg={11}>
+                  <Post post={item} />
+                </Col>
+              </Row>
+            ))}
           </Col>
         </Row>
       </Container>
     </div>
-  );
+  );}
 };
 
 export default Dashboard;
