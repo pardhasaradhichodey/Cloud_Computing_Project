@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Tabs, Tab, Form, Button, Card, Row, Col } from "react-bootstrap";
 import NavigationBar from "./NavigationBar";
+import { useNavigate } from "react-router-dom";
 //import { useNavigate } from "react-router-dom";
 
 const AuthPage = () => {
@@ -10,6 +11,7 @@ const AuthPage = () => {
     setKey(k);
   };
   //Navigation Variable to navigate from page to page
+  const navigate=useNavigate();
   //const navigate = useNavigate();
 
   //to collect login form data
@@ -136,14 +138,12 @@ const AuthPage = () => {
             body: JSON.stringify(formData),
           }
         );
-        response(response);
-        window.location.reload(false);
+        navigate('/');
+        
       } catch (error) {
         console.error("Error during user registration:", error);
       }
       console.log("Form submitted successfully");
-
-      // Perform further actions such as API calls, etc.
     }
   };
 
