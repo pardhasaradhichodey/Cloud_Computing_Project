@@ -139,7 +139,7 @@ const AuthPage = () => {
           }
         );
         navigate('/');
-        
+        console.log(response);
       } catch (error) {
         console.error("Error during user registration:", error);
       }
